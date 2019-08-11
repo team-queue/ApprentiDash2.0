@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Thread</title>
+    <link rel="stylesheet" type="text/css" href="../reset.css">
+    <link rel="stylesheet" type="text/css" href="../base.css">
+    <link rel="stylesheet" type="text/css" href="../layout.css">
+    <link rel="stylesheet" type="text/css" href="../modules.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <div th:replace="fragments/navbar :: navbar(${userFirstName}, ${isLoggedIn}, ${currentPage})"></div>
+    </header>
+    <main>
+
+        <div class="card discussion bg-light shadow">
+            <h1 th:text="${discussion.title}"></h1>
+            <p th:text="${discussion.body}"></p>
+            <p th:text="${discussion.author.username}"></p>
+        </div>
+        <ul class="list-group list-group-flush" th:each="comment : ${discussion.comments}">
+            <li class="list-group-item">
+                <div th:replace="fragments/comment :: .comment">...</div>
+            </li>
+        </ul>
+
+                <!-------------- ADD COMMENT---------------->
+        <button type="button" class="btn btn-info comment-button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Comment</button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add a Comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:method="POST" th:action="'/forum/' + ${discussion.id}">
+                            <div class="form-group">
+                                <textarea class="form-control" name="body" id="body"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-info">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Record Hour</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="base.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <link rel="stylesheet" type="text/css" href="modules.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <div th:replace="fragments/navbar :: navbar(${userFirstName}, ${isLoggedIn}, ${currentPage})"></div>
+    </header>
+    <div class="main_content">
+
+<!-- Ticking clock reference: https://www.zeitverschiebung.net/en/clock-widget?size=large&timezone=America/Los_Angeles&type=city&id=5809844#location       -->
+        <div style="text-align:center;padding:1em 0;">
+            <h2><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/en/city/5809844">
+                <span style="color:gray;">Current Time</span></a></h2>
+            <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=large&timezone=America%2FLos_Angeles" width="100%" height="140" frameborder="0" seamless></iframe>
+        </div>
+
+        <form class="clock_in_form" action="/recordHour" method="POST">
+
+            <div class="form-group" th:if="${workStatus == 'clockIn'}">
+                <p>You can clock in when you're ready to start work. </p>
+                <button type="submit" name="name"
+                        value="value">Clock In</button>
+            </div>
+
+            <div class="form-group" th:if="${workStatus == 'lunchIn'}">
+                <p class="clock_status">You are currently clocked in. </p>
+                <p>You can check out for lunch when you're ready to go to lunch. </p>
+                <button  type="submit" name="name"
+                         value="value">Lunch In</button>
+            </div>
+
+            <div class="form-group" th:if="${workStatus == 'lunchOut'}">
+                <p class="clock_status">You are currently on lunch. </p>
+                <p>You can check back in when you're done with lunch. </p>
+                <button  type="submit" name="name"
+                         value="value">Lunch Out</button>
+            </div>
+
+            <div class="form-group" th:if="${workStatus == 'clockOut'}">
+                <p class="clock_status">You are currently clocked in. </p>
+                <p>You can clock out when you're done for the day. </p>
+                <button type="submit" name="name"
+                        value="value">Clock Out</button>
+            </div>
+
+
+        </form>
+        <div class="doneForTheDay" th:if="${workStatus == 'notNewDay'}">
+            <p> You are done for <span th:text="${#temporals.dayOfWeekName(todayDate)}"></span>. See you tomorrow.</p>
+            <form class="clock_in_form" th:action="@{/additionalDayRecord}"  method="GET">
+                <div class="form-group">
+                    <button type="submit" name="name" value="value">Start a New Day</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

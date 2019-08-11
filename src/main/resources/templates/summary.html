@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Timesheet Summary</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="base.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <link rel="stylesheet" type="text/css" href="modules.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <div th:replace="fragments/navbar :: navbar(${userFirstName}, ${isLoggedIn}, ${currentPage})"></div>
+    </header>
+    <div class="main_content">
+        <h2 class="summary_h2">Summary</h2>
+
+<div>
+    <form action="/summary">
+        <div class="row">
+            <div class="col form-group">
+                From Date:
+                <input class="form-control" type="date" name="fromDate" th:value="${#temporals.format(fromDate, 'yyyy-MM-dd')}" required>
+            </div>
+            <div class="col form-group">
+                To Date:
+                <input class="form-control" type="date" name="toDate" th:value="${#temporals.format(toDate, 'yyyy-MM-dd')}" required>
+            </div>
+            <div class="col form-group">
+                <input class="btn-summary btn btn-info" type="submit">
+            </div>
+        </div>
+    </form>
+</div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time In</th>
+                <th scope="col">Time Out</th>
+                <th scope="col">Lunch</th>
+                <th scope="col">Daily Worked Hours</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="day : ${days}">
+                <td scope="row" th:text="${#temporals.dayOfWeekName(day.clockIn)}"></td>
+                <td th:text="${#temporals.format(day.clockIn, 'MM-dd-yyyy')}"></td>
+                <td th:text="${#temporals.format(day.clockIn, 'HH:mm')}"></td>
+                <td th:text="${#temporals.format(day.clockOut, 'HH:mm')}"></td>
+                <td th:text="${#numbers.formatDecimal(day.calculateLunch(), 1, 2)}"></td>
+                <td th:text="${#numbers.formatDecimal(day.calculateDailyHours(), 1, 2)}"></td>
+                <td><a th:href="'/edit/' + ${day.getId()}"><span>Edit</span></a></td>
+            </tr>
+
+            </tbody>
+        </table>
+        <h4 class="total_hours">Total Hours: <span th:text="${#numbers.formatDecimal(totalHours, 1, 2)}"></span></h4>
+    </div>
+    <form th:if="${not #lists.isEmpty(days)}" th:action="@{/timesheet}"  method="GET">
+            <button class="btn btn-info float-right" type="submit" name="" value="value">Download Timesheet</button>
+    </form>
+</body>
+</html>

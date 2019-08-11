@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Page</title>
+    <link rel="stylesheet" type="text/css" href="/reset.css">
+    <link rel="stylesheet" type="text/css" href="/base.css">
+    <link rel="stylesheet" type="text/css" href="/layout.css">
+    <link rel="stylesheet" type="text/css" href="/modules.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <div th:replace="fragments/navbar :: navbar(${userFirstName}, ${isLoggedIn}, ${currentPage})"></div>
+    </header>
+    <div class="main_content, edit_content">
+        <form class="editForm" action="/edit" method="POST">
+            <h2>Edit Hours</h2>
+        <table class="editTable table">
+            <thead>
+            <tr>
+                <th scope="col">DAY</th>
+                <th scope="col">DATE</th>
+                <th scope="col">TIME IN</th>
+                <th scope="col">TIME OUT</th>
+                <th scope="col">LUNCH IN</th>
+                <th scope="col">LUNCH OUT</th>
+            </tr>
+            </thead>
+
+            <tr>
+
+            <input type="hidden" name="dayId" th:value="${currentDay.getId()}">
+            <td th:text="${#temporals.dayOfWeekName(currentDay.getClockIn())}"></td>
+            <td> <input class="form-control" id="newDate" type="date" name="newDate"
+                        th:value="${#temporals.format(currentDay.getClockIn(), 'yyyy-MM-dd')}"
+                       required></td>
+            <td> <input class="form-control" id="clockIn" type="time" name="clockIn" th:value="${#temporals.format(currentDay.getClockIn(),'HH:mm')}" ></td>
+            <td> <input class="form-control" id="clockOut" type="time" name="clockOut" th:value="${#temporals.format(currentDay.getClockOut(),'HH:mm')}" ></td>
+            <td> <input class="form-control" id="lunchStart" type="time" name="lunchStart" th:value="${#temporals.format(currentDay.getLunchStart(),'HH:mm')}" ></td>
+            <td> <input class="form-control" id="lunchEnd" type="time" name="lunchEnd" th:value="${#temporals.format(currentDay.getLunchEnd(),'HH:mm')}"></td>
+           
+            </tr>
+
+        </table>
+            <input class="btn btn-info float-right" type="submit" value="Update Hours">
+        </form>
+        <button class="delete_button btn btn-outline-danger"><a th:href="'/delete/'+ ${currentDay.getId()}">Delete Entire Day</a></button>
+    </div>
+</body>
+</html>

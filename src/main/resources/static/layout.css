@@ -1,0 +1,42 @@
+body {
+  padding: 4em;
+  background-color: #fafafa;
+}
+
+p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+h1 {
+  font-size: 3.5em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 3em;
+  text-align: center;
+}
+
+h3 {
+  font-size: 2em;
+  text-align: center;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+form * {
+  margin: 5px;
+}
+
+

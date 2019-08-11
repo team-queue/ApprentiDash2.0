@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="base.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <link rel="stylesheet" type="text/css" href="modules.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="main_content">
+        <h3>Oops, there seems to be a problem.</h3>
+        <table class="error_table">
+            <tr>
+                <td>Path</td>
+                <td th:text="${path}"/>
+            </tr>
+            <tr>
+                <td>Error</td>
+                <td th:text="${error}"/>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td th:text="${status}"/>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td th:text="${message}"/>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

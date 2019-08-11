@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="base.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+    <link rel="stylesheet" type="text/css" href="modules.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header>
+        <div th:replace="fragments/navbar :: navbar(${userFirstName}, ${isLoggedIn}, ${currentPage})"></div>
+    </header>
+
+    <div class="main_content mt2">
+        <p>We can help make your OJT clock-in process easier.</p>
+
+        <div th:if="${isLoggedIn == false}">
+            <p class="home_cta">Before we get started, be sure to log in or
+                <a th:href="@{'/signup'}" method="GET">sign up</a>.</p>
+            <h3>Log In:</h3>
+            <form class="form-signin" action="/login" method="POST">
+                <div class="form-label-group">
+                    <input class="form-control" type=text name="username"  placeholder="username" required/>
+                </div>
+                <div class="form-label-group">
+                    <input class="form-control" type=password name="password" placeholder="password" required/>
+                </div>
+                <input class="btn btn-lg btn-info btn-block" type="submit"/>
+            </form>
+        </div>
+
+        <div th:if="${isLoggedIn == true}">
+            <p class="home_cta">Get started by <a th:href="@{'/recordHour'}">clocking in</a>.</p>
+        </div>
+    </div>
+
+</body>
+</html>

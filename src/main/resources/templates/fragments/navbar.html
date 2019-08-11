@@ -1,0 +1,45 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="navbar(userFirstName, isLoggedIn, currentPage)" class="navbar">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+        <h1 class="title"><a th:href="@{'/'}">ApprentiDash</a></h1>
+        <span class="welcome">Welcome, <span th:text="${userFirstName}"></span>!</span>
+        <!-- Displays Log in or log out depending on logged in status-->
+        <!--    <a class="logout_in" th:if="${isLoggedIn == true && currentPage != 'home'}" th:href="@{'/logout'}">Logout</a>-->
+        <!--    <a class="logout_in" th:if="${isLoggedIn == false && currentPage != 'home'}" th:href="@{'/login'}">Login</a>-->
+        <ul class="navbar-nav ml-auto">
+            <!-- Nav bar checks which page it is on and turns off unnecessary buttons, huge thanks to David for the idea!-->
+            <li class="nav-item" th:if="${isLoggedIn == true && currentPage != 'home' && currentPage != 'summary' && currentPage != 'signup'}"><a
+                    class="nav-link"
+                    th:href="@{'/summary'}">
+                Hours
+                Summary</a></li>
+            <li class="nav-item" th:if="${isLoggedIn == true && currentPage != 'home' && currentPage != 'clock_in' && currentPage != 'signup'}"><a
+                    class="nav-link"
+                    th:href="@{'/recordHour'}">
+                Clock In Page</a></li>
+            <li class="nav-item" th:if="${isLoggedIn == true && currentPage != 'home' && currentPage != 'forum' && currentPage != 'signup'}"><a
+                    class="nav-link"
+                    th:href="@{'/forum'}">
+                Forum</a></li>
+            <li class="nav-item" th:if="${isLoggedIn == true && currentPage != 'settings'}"><a
+                    class="nav-link"
+                    th:href="@{'/settings'}">
+                User Settings</a></li>
+            <li class="nav-item" th:if="${isLoggedIn == true && currentPage != 'home'}"><a
+                    class="nav-link"
+                    th:href="@{'/logout'}">
+                Logout</a></li>
+            <li class="nav-item" th:if="${isLoggedIn == false && currentPage != 'home'}"><a
+                    class="nav-link"
+                    th:href="@{'/login'}">
+                Login</a></li>
+        </ul>
+
+    </nav>
+
+
+
+</div>
