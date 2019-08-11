@@ -24,7 +24,7 @@ Log in and have access to all your timesheet data.
 
 Clock-in/out/and in-between. Using a single button press, users can record their working hours throughout the day.
 
-This app also allows users to view a summary of their hours, edit dates/times, and export them to a csv.
+This app also allows users to view a summary of their hours, edit dates/times, and export them to a csv file.
 
 ![Clock Out Page Screenshot](./supplementalReadmes/screenshots/ClockOutPage.png)  
 
