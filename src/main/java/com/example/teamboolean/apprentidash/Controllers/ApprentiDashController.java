@@ -38,11 +38,11 @@ public class ApprentiDashController {
     TimesheetController timesheetController = new TimesheetController();
 /*********************************** AWS SES *********************************************/
     //Things we need for sending email to admin.
-    static final String FROM = "gaoyasir@gmail.com";
+    static final String FROM = "test@gmail.com";
 
     // Replace recipient@example.com with a "To" address. If your account
     // is still in the sandbox, this address must be verified.
-    static final String TO = "gaoyasir@hotmail.com";
+    static final String TO = "test@hotmail.com";
 
     // The subject line for the email.
     static final String SUBJECT = "User login";
